@@ -1,5 +1,13 @@
+"use client";
+import { signIn } from "@/app/utils/auth";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import React from "react";
@@ -17,10 +25,16 @@ export default function LoginPage() {
           </CardHeader>
           {/* Add your login form here */}
           <CardContent>
-            <form className="flex flex-col gap-y-4">
+            <form
+              action={async (formData) => {
+                "use server";
+                await signIn("nodemailer", formData);
+              }}
+              className="flex flex-col gap-y-4"
+            >
               <div className="flex flex-col gap-y-2">
                 <Label>Email</Label>
-                <Input placeholder="hi@hi.com" />
+                <Input name="email" type="email" required placeholder="hi@hi.com" />
               </div>
               <Button>Submit</Button>
             </form>
