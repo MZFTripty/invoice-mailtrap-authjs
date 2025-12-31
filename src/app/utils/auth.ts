@@ -4,7 +4,7 @@ import Nodemailer from 'next-auth/providers/nodemailer';
 import { prisma } from './db';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  adapter: PrismaAdapter(prisma as any), // Type assertion needed for Prisma 7 with custom output
+  adapter: PrismaAdapter(prisma as unknown),
   providers: [
     Nodemailer({
       server: {
