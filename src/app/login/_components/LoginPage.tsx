@@ -1,4 +1,5 @@
-import { signIn } from '@/app/utils/auth';
+import SubmitButton from '@/app/_components/SubmitButton';
+import { auth, signIn } from '@/app/utils/auth';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -9,8 +10,15 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { redirect } from 'next/navigation';
 
-export default function LoginPage() {
+
+
+export default  async function LoginPage() {
+  const session = await auth()
+  if(session?.user){
+    redirect("/dashboard")
+  }
   return (
     <>
       <div className="flex h-screen w-full items-center justify-center">
@@ -39,7 +47,7 @@ export default function LoginPage() {
                   placeholder="hi@hi.com"
                 />
               </div>
-              <Button>Submit</Button>
+              <SubmitButton />
             </form>
           </CardContent>
         </Card>
